@@ -1,0 +1,260 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    /* Blood Reapers Dark Theme — OKLCH raw L C H values */
+    --background: 0.08 0.005 285;
+    --foreground: 0.95 0 0;
+    --card: 0.11 0.008 285;
+    --card-foreground: 0.95 0 0;
+    --popover: 0.11 0.008 285;
+    --popover-foreground: 0.95 0 0;
+    --primary: 0.53 0.22 27;
+    --primary-foreground: 0.98 0 0;
+    --secondary: 0.16 0.008 285;
+    --secondary-foreground: 0.85 0 0;
+    --muted: 0.16 0.008 285;
+    --muted-foreground: 0.65 0 0;
+    --accent: 0.53 0.22 27;
+    --accent-foreground: 0.98 0 0;
+    --destructive: 0.53 0.22 27;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.53 0.22 27 / 30%;
+    --input: 0.53 0.22 27 / 20%;
+    --ring: 0.53 0.22 27;
+    /* Custom semantic tokens */
+    --win: 0.72 0.18 145;
+    --loss: 0.55 0.22 27;
+    --draw: 0.75 0.17 85;
+    --glow-red: rgba(255, 42, 42, 0.5);
+    --glow-red-strong: rgba(255, 42, 42, 0.8);
+    --chart-1: 0.488 0.243 264.376;
+    --chart-2: 0.696 0.17 162.48;
+    --chart-3: 0.769 0.188 70.08;
+    --chart-4: 0.627 0.265 303.9;
+    --chart-5: 0.645 0.246 16.439;
+    --sidebar: 0.11 0.008 285;
+    --sidebar-foreground: 0.95 0 0;
+    --sidebar-primary: 0.53 0.22 27;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.16 0.008 285;
+    --sidebar-accent-foreground: 0.85 0 0;
+    --sidebar-border: 0.53 0.22 27 / 30%;
+    --sidebar-ring: 0.53 0.22 27;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Rajdhani", sans-serif;
+  }
+  .font-heading {
+    font-family: "Oswald", sans-serif;
+  }
+}
+
+/* ========================
+   ANIMATIONS
+======================== */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(255, 42, 42, 0.8), 0 0 20px
+      rgba(255, 42, 42, 0.5), 0 0 40px rgba(255, 42, 42, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 42, 42, 1), 0 0 40px rgba(255, 42, 42, 0.8),
+      0 0 80px rgba(255, 42, 42, 0.5);
+  }
+}
+
+@keyframes btn-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(255, 42, 42, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 42, 42, 0.9), 0 0 50px rgba(255, 42, 42, 0.4);
+  }
+}
+
+@keyframes bg-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-80px, -60px) scale(1.1);
+  }
+  66% {
+    transform: translate(60px, -40px) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-120px) translateX(var(--drift-x, 20px));
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+.animate-btn-pulse {
+  animation: btn-pulse 2s ease-in-out infinite;
+}
+.animate-bg-drift {
+  animation: bg-drift 18s ease-in-out infinite;
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+.clan-card {
+  background: rgba(14, 5, 5, 0.88);
+  border: 1px solid rgba(255, 42, 42, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.clan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.4), 0 8px 32px rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 42, 42, 0.7);
+}
+
+.section-title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f2f2f2;
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff2a2a, transparent);
+  border-radius: 2px;
+}
+
+.war-table-row {
+  border-bottom: 1px solid rgba(255, 42, 42, 0.15);
+  transition: background 0.2s;
+}
+.war-table-row:hover {
+  background: rgba(255, 42, 42, 0.05);
+}
+
+.red-gradient-btn {
+  background: linear-gradient(135deg, #ff2a2a, #8b0000);
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.red-gradient-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 42, 42, 0.7);
+}
+
+.outline-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 42, 42, 0.6);
+  color: #ff2a2a;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.outline-btn:hover {
+  background: rgba(255, 42, 42, 0.1);
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.3);
+  transform: scale(1.03);
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ff2a2a;
+  box-shadow: 0 0 6px #ff2a2a, 0 0 12px rgba(255, 42, 42, 0.5);
+  animation: particle-float var(--duration, 3s) ease-in infinite;
+  animation-delay: var(--delay, 0s);
+  --drift-x: var(--drift, 20px);
+}
+
+.team-card {
+  background: rgba(14, 5, 5, 0.88);
+  border: 1px solid rgba(255, 42, 42, 0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.team-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 14px rgba(255, 42, 42, 0.3);
+  border-color: rgba(255, 42, 42, 0.55);
+}
+
+.avatar-circle {
+  background: linear-gradient(135deg, #3d0000, #8b0000);
+  border: 2px solid rgba(255, 42, 42, 0.5);
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  color: #ff2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
